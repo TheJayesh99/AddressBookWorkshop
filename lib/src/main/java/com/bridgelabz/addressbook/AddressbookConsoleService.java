@@ -5,10 +5,13 @@ import java.util.Scanner;
 
 public  class AddressbookConsoleService 
 {
-	public void createContact()
+	//list to hold all contacts
+	LinkedList<Contacts> addressBook = new LinkedList<>(); 
+
+	//method to create contacts
+	public Contacts createContact()
 	{
 		Contacts contact = new Contacts();
-		LinkedList<Contacts> allContacts = new LinkedList<>();
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Enter First Name");
 		contact.setFirstName(scanner.next());
@@ -27,7 +30,13 @@ public  class AddressbookConsoleService
 		System.out.println("Enter Email");
 		contact.setEmail(scanner.next());
 		scanner.close();
-		
-		System.out.println(contact);
+		return contact;
+	}
+	
+	//method to add contact to list
+	public LinkedList<Contacts> addContacts(Contacts contact)
+	{
+		addressBook.add(contact);
+		return addressBook;
 	}
 }
