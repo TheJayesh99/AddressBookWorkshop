@@ -16,7 +16,8 @@ public class AddressBookMain
 					+ " 1 Add Contact "
 					+ "\n 2 Edit Contact "
 					+ "\n 3 Display Contacts"
-					+ "\n 4 Exit"
+					+ "\n 4 Delete"
+					+ "\n 5 Exit"
 					+ "");
 
 			int userChoice = scanner.nextInt();
@@ -26,7 +27,7 @@ public class AddressBookMain
 				Contacts contact = addressbookConsoleService.createContact();
 				addressbookConsoleService.addContacts(contact);
 				break;
-			
+
 			case 2:
 				System.out.println("Enter a name of person of whom you waht to change data");
 				addressbookConsoleService.editContact(scanner.next());
@@ -35,11 +36,17 @@ public class AddressBookMain
 			case 3:
 				addressbookConsoleService.displayContacts();
 				break;
-			
+
 			case 4:
+				System.out.println("Enter a name of person of whom you want to delete conatct");
+				addressbookConsoleService.deleteContact(scanner.next());
+				break;
+
+			case 5:
 				scanner.close();
 				System.exit(0);
 				break;
+
 
 			default:
 				System.out.println("Enter a proper value");

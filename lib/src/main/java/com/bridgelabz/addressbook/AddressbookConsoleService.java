@@ -47,6 +47,7 @@ public  class AddressbookConsoleService
 			throw new CustomException(ExceptionsType.WRONG_INPUT, "Entered the wrong value");
 		}
 	}
+
 	//method to add contact to list
 	public Contacts[] addContacts(Contacts contact)
 	{
@@ -62,7 +63,7 @@ public  class AddressbookConsoleService
 	}
 
 	//edit contact
-	public Contacts[] editContact(String name)//TODO fix the exception
+	public Contacts[] editContact(String name)
 	{
 		boolean is_found = false;
 		if(addressBook.length == 0)
@@ -81,12 +82,32 @@ public  class AddressbookConsoleService
 				}
 			}
 		}
-		if (!is_found)
-		{
-			System.out.println("contact not found");
-		}
+		contactNotPresent(is_found);
 		return addressBook;
 	}
+
+
+	//method to delete contact
+	public Contacts[] deleteContact(String name)
+	{
+		boolean is_found = false;
+		for (int conatct = 0; conatct < addressBook.length; conatct++) 
+		{
+			if(addressBook[conatct] != null && addressBook[conatct].getFirstName().equals(name) )
+			{ 
+				is_found = true;
+				for (int index=conatct; index < addressBook.length-2 ; index++)
+				{					
+					addressBook[index] = addressBook[index+1];
+				}
+				System.out.println("Contact deleted SuccessFully");
+			}
+
+		}
+		contactNotPresent(is_found);
+		return addressBook;
+	}
+
 
 	//display contacts
 	public void displayContacts() 
@@ -106,5 +127,15 @@ public  class AddressbookConsoleService
 			System.out.println("Contact list is empty");
 		}
 	}
+
+	//check weather contact is present or not
+	private void contactNotPresent(boolean is_found) 
+	{
+		if (!is_found)
+		{
+			System.out.println("contact not found");
+		}
+	}
 }
+
 
