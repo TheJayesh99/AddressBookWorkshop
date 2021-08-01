@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
-
+import java.util.Comparator;
 import com.bridgelabz.addressbook.CustomException.ExceptionsType;
 
 public  class AddressbookConsoleService 
@@ -118,16 +118,16 @@ public  class AddressbookConsoleService
 		{
 			try
 			{
-			for (Contacts contact : addressBooks.get(bookName))
-			{	
-				if (contact.getFirstName().equals(name))
-				{
-					getDetails(contact);
-					is_found = true;
-					System.out.println("Contact Updated");
-					return addressBooks;
+				for (Contacts contact : addressBooks.get(bookName))
+				{	
+					if (contact.getFirstName().equals(name))
+					{
+						getDetails(contact);
+						is_found = true;
+						System.out.println("Contact Updated");
+						return addressBooks;
+					}
 				}
-			}
 			}
 			catch (Exception e) 
 			{
@@ -193,12 +193,23 @@ public  class AddressbookConsoleService
 		for (String bookName : addressBooks.keySet())
 		{
 			LinkedList<Contacts> contactList  =  addressBooks.get(bookName);
-			 List<Contacts> contactHavingSameCityOrState = contactList.stream()
-			.filter(contact->contact.getState().equals(searchKey) || contact.getCity().equals(searchKey))
-			.collect(Collectors.toList());
-			 return contactHavingSameCityOrState;
+			List<Contacts> contactHavingSameCityOrState = contactList.stream()
+					.filter(contact->contact.getState().equals(searchKey) || contact.getCity().equals(searchKey))
+					.collect(Collectors.toList());
+			return contactHavingSameCityOrState;
 		}
 		return null;
+	}
+
+	//method to sort contacts based on person name
+	public void sortContacts()
+	{
+		for (String bookName : addressBooks.keySet())
+		{
+			System.out.println(bookName);
+			LinkedList<Contacts> contatct = addressBooks.get(bookName);
+			contatct.stream().sorted(Comparator.comparing(Contacts::getFirstName)).forEach(contact->System.out.println(contact));
+		}
 	}
 
 }

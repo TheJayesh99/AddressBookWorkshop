@@ -12,7 +12,9 @@ public class AddressBookMain
 	private static final int SEARCH_CONTACT = 5;
 	private static final int VIEW_PERSON = 6;
 	private static final int COUNT_PERSON = 7;
-	private static final int EXIT = 8;
+	private static final int SORT = 8;
+	private static final int EXIT = 9;
+	
 	public static void main(String[] args) 
 	{
 		Scanner scanner = new Scanner(System.in);
@@ -29,7 +31,8 @@ public class AddressBookMain
 					+ "\n 5 Search Person on basis of city or state"
 					+ "\n 6 View Person on basis of city or state"
 					+ "\n 7 Count number Of person in same city or state"
-					+ "\n 8 Exit"
+					+ "\n 8 Sort Persons by name "
+					+ "\n 9 Exit"
 					+ "");
 
 			int userChoice = scanner.nextInt();
@@ -88,7 +91,11 @@ public class AddressBookMain
 				List<Contacts> contactListToCount = addressbookConsoleService.searchPerson(getSearchKey(scanner));
 				System.out.println("There are total "+contactListToCount.size()+" Contacts");
 				break;
-
+				
+			case SORT:
+				addressbookConsoleService.sortContacts();
+				break;
+				
 			case EXIT:
 				System.out.println("Thanks for using us");
 				scanner.close();
