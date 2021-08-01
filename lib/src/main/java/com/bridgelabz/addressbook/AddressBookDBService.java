@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.bridgelabz.addressbook.CustomException.ExceptionsType;
@@ -129,4 +130,24 @@ public class AddressBookDBService
 			return getQueryResult(query); 
 		}
 		
+		//method to find contacts having same city
+		public HashMap<String, Integer> getContactHaveSameCity()
+		{
+			HashMap<String, Integer> matches = new HashMap<String, Integer>();
+			try(Connection connection = this.getConnection())
+			{
+				String sql = " select city,count(city) from addressbook group by city; ";
+				Statement statement = connection.createStatement();
+				ResultSet resultSet = statement.executeQuery(sql);
+				while (resultSet.next())
+				{
+					matches.put(resultSet.getString(1),resultSet.getInt(2));
+				}
+			}
+			catch(SQLException e)
+			{
+				throw new CustomException(ExceptionsType.INVALID_QUERY,"error while executing query");
+			}
+			return matches;
+		}
 }

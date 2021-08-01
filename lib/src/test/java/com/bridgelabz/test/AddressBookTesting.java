@@ -3,6 +3,7 @@ package com.bridgelabz.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.junit.Before;
@@ -132,6 +133,14 @@ public class AddressBookTesting
 		AddressBookDBService addressBookService = new AddressBookDBService();
 		List<Contacts> contactList  = addressBookService.getContatctsAddedAfterdate("2020-1-1");
 		assertEquals(3, contactList.size());
+	}
+	
+	@Test
+	public void givenAddressbookDB_WhenInSameCity_ShouldReturnNumberOfContacts() 
+	{
+		AddressBookDBService addressBookService = new AddressBookDBService();
+		HashMap<String, Integer> sameCity = addressBookService.getContactHaveSameCity();
+		assertEquals(2, sameCity.size());
 	}
 
 }
