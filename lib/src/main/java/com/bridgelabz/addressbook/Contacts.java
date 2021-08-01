@@ -1,16 +1,26 @@
 package com.bridgelabz.addressbook;
 
+import com.opencsv.bean.CsvBindByPosition;
+
 public class Contacts 
 {
 	//contact details
-	private String firstName;
-	private String lastname;
-	private String address;
-	private String city;
-	private String state;
-	private String zip;
-	private int phoneNumber;
-	private String email;
+	@CsvBindByPosition(position = 0)
+	 private String firstName;
+	@CsvBindByPosition(position = 1)
+	 private String lastname;
+	@CsvBindByPosition(position = 2)
+	 private String address;
+	@CsvBindByPosition(position = 3)
+	 private String city;
+	@CsvBindByPosition(position = 4)
+	 private String state;
+	@CsvBindByPosition(position = 5)
+	 private String zip;
+	@CsvBindByPosition(position = 6)
+	 private int phoneNumber;
+	@CsvBindByPosition(position = 7)
+	 private String email;
 
 
 	public Contacts() 

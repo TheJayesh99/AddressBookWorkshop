@@ -1,0 +1,4 @@
+Company
+[Contacts [firstName=mukesh, lastname=ambani, address=jio, city=thane, state=goa, zip=1234, phoneNumber=129834765, email=mail@jio]]
+Sports
+[Contacts [firstName=virat, lastname=kolhi, address=ghatkopar, city=mumbai, state=Maharashtra, zip=12321, phoneNumber=987654321, email=maikl@virat], Contacts [firstName=ms, lastname=dhoni, address=panvel, city=Mumbai, state=maharashtra, zip=098765456, phoneNumber=12398723, email=mail@dhoni]]

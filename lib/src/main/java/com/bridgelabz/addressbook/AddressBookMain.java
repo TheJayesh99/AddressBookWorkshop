@@ -110,11 +110,37 @@ public class AddressBookMain
 				break;
 			
 			case WRITE_IN_FILE:
-				addressBookFileService.writingToTextFile();
+				System.out.println("In which file you want to write");
+				System.out.println(" 1 Text File"
+						+ "\n 2 CSV FIle");
+				switch (scanner.nextInt())
+				{
+				case 1:
+					addressBookFileService.writingToTextFile();
+					break;
+				case 2:
+					addressBookFileService.writingToCsvFile();
+					break;
+				default:
+					System.err.println("invalid Input");
+				}
 				break;
 			
 			case READ_FROM_FILE:
-				addressBookFileService.readFromTextFile();
+				System.out.println("In which file you want to read");
+				System.out.println(" 1 Text File"
+						+ "\n 2 CSV FIle");
+				switch (scanner.nextInt())
+				{
+				case 1:
+					addressBookFileService.readFromTextFile();
+					break;
+				case 2:
+					addressBookFileService.readFromCsvFile();
+					break;
+				default:
+					System.err.println("invalid Input");
+				}
 				break;
 			
 			case EXIT:
