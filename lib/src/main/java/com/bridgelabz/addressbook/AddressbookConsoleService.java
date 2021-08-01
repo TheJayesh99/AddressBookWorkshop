@@ -87,7 +87,7 @@ public  class AddressbookConsoleService
 	}
 
 
-	//method to delete contact
+	//Method to delete contact
 	public Contacts[] deleteContact(String name)
 	{
 		boolean is_found = false;

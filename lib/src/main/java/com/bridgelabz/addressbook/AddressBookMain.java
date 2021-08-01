@@ -4,6 +4,11 @@ import java.util.Scanner;
 
 public class AddressBookMain 
 {
+	private static final int ADD_CONTACT = 1;
+	private static final int EDIT_CONATCT = 2;
+	private static final int DISPLAY_CONATCT = 3;
+	private static final int DELETE_CONATCT = 4;
+	private static final int EXIT = 5;
 	public static void main(String[] args) 
 	{
 		Scanner scanner = new Scanner(System.in);
@@ -23,31 +28,31 @@ public class AddressBookMain
 			int userChoice = scanner.nextInt();
 			switch (userChoice) 
 			{
-			case 1:				
+			case ADD_CONTACT:				
 				Contacts contact = addressbookConsoleService.createContact();
 				addressbookConsoleService.addContacts(contact);
 				break;
 
-			case 2:
+			case EDIT_CONATCT:
 				System.out.println("Enter a name of person of whom you waht to change data");
 				addressbookConsoleService.editContact(scanner.next());
 				break;
 
-			case 3:
+			case DISPLAY_CONATCT:
 				addressbookConsoleService.displayContacts();
 				break;
 
-			case 4:
+			case DELETE_CONATCT:
 				System.out.println("Enter a name of person of whom you want to delete conatct");
 				addressbookConsoleService.deleteContact(scanner.next());
 				break;
 
-			case 5:
+			case EXIT:
+				System.out.println("Thanks for using us");
 				scanner.close();
 				System.exit(0);
 				break;
-
-
+				
 			default:
 				System.out.println("Enter a proper value");
 			}
