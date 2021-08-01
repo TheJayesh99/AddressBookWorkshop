@@ -53,12 +53,11 @@ public  class AddressbookConsoleService
 	}
 
 	//method to add contact to list
-	public HashMap<String, LinkedList<Contacts>> addContacts(Contacts contact)
+	public HashMap<String, LinkedList<Contacts>> addContacts(Contacts contact, String bookName)
 	{
 		try
 		{
-			System.out.println("Enter Book name to which you have to add contact");
-			String bookName  = scanner.next();
+			
 
 			//checking book already exist
 			if (addressBooks.containsKey(bookName))

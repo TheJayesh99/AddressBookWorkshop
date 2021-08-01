@@ -51,7 +51,9 @@ public class AddressBookMain
 			{
 			case ADD_CONTACT:				
 				Contacts contact = addressbookConsoleService.createContact();
-				addressbookConsoleService.addContacts(contact);
+				System.out.println("Enter Book name to which you have to add contact");
+				String bookName  = scanner.next();
+				addressbookConsoleService.addContacts(contact,bookName);
 				break;
 
 			case EDIT_CONATCT:
@@ -164,7 +166,6 @@ public class AddressBookMain
 				scanner.close();
 				System.exit(0);
 				break;
-
 
 			default:
 				System.out.println("Enter a proper value");
