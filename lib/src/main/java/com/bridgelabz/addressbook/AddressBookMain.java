@@ -10,7 +10,8 @@ public class AddressBookMain
 	private static final int DISPLAY_CONATCT = 3;
 	private static final int DELETE_CONATCT = 4;
 	private static final int SEARCH_CONTACT = 5;
-	private static final int EXIT = 6;
+	private static final int VIEW_PERSON = 6;
+	private static final int EXIT = 7;
 	public static void main(String[] args) 
 	{
 		Scanner scanner = new Scanner(System.in);
@@ -24,8 +25,9 @@ public class AddressBookMain
 					+ "\n 2 Edit Contact "
 					+ "\n 3 Display Contacts"
 					+ "\n 4 Delete Contact"
-					+ "\n 5 Search on basis of city or state"
-					+ "\n 6 Exit"
+					+ "\n 5 Search Person on basis of city or state"
+					+ "\n 6 View Person on basis of city or state"
+					+ "\n 7 Exit"
 					+ "");
 
 			int userChoice = scanner.nextInt();
@@ -58,18 +60,32 @@ public class AddressBookMain
 
 			case SEARCH_CONTACT:
 				System.out.println("Enter the city or state which to be searched");
-				String searchKey = scanner.next();
-				List<Contacts> contactList = addressbookConsoleService.searchPerson(searchKey);
-				if(contactList.isEmpty())
+				String searchKeyToSearch = scanner.next();
+				List<Contacts> contactListToSearchPerson = addressbookConsoleService.searchPerson(searchKeyToSearch);
+				if(contactListToSearchPerson.isEmpty())
 				{					
 					System.out.println("There are no such contact");
 				}
 				else 
 				{
-					System.out.println(contactList);
+					contactListToSearchPerson.stream().map(contacts -> contacts.getFirstName()).forEach(conatct_name -> System.out.println(conatct_name));
 				}
 				break;
-
+			
+			case VIEW_PERSON:
+				System.out.println("Enter the city or state which to be searched");
+				String searchKeyToViewPerson = scanner.next();
+				List<Contacts> contactListToVIewPerson = addressbookConsoleService.searchPerson(searchKeyToViewPerson);
+				if(contactListToVIewPerson.isEmpty())
+				{					
+					System.out.println("There are no such contact");
+				}
+				else 
+				{
+					System.out.println(contactListToVIewPerson);
+				}
+				break;
+				
 			case EXIT:
 				System.out.println("Thanks for using us");
 				scanner.close();
