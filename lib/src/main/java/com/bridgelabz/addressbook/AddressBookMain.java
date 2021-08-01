@@ -121,6 +121,9 @@ public class AddressBookMain
 				case 2:
 					addressBookFileService.writingToCsvFile();
 					break;
+				case 3:
+					addressBookFileService.writingToJsonFile();
+					break;
 				default:
 					System.err.println("invalid Input");
 				}
@@ -129,7 +132,8 @@ public class AddressBookMain
 			case READ_FROM_FILE:
 				System.out.println("In which file you want to read");
 				System.out.println(" 1 Text File"
-						+ "\n 2 CSV FIle");
+						+ "\n 2 CSV FIle"
+						+ "\n 3 JSON File");
 				switch (scanner.nextInt())
 				{
 				case 1:
@@ -137,6 +141,9 @@ public class AddressBookMain
 					break;
 				case 2:
 					addressBookFileService.readFromCsvFile();
+					break;
+				case 3:
+					addressBookFileService.readFromJsonFile();
 					break;
 				default:
 					System.err.println("invalid Input");
