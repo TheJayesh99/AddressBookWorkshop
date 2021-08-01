@@ -95,7 +95,7 @@ public class AddressBookDBService
 			}
 			catch(SQLException e)
 			{
-				e.printStackTrace();
+				throw new CustomException(ExceptionsType.INVALID_QUERY,"error while executing query");
 			}
 		}
 		
@@ -117,6 +117,16 @@ public class AddressBookDBService
 			String sql = "select * from addressbook join ab_grp on (addressbook.id = ab_grp.id)"
 					+ "     join group_type on (ab_grp.gid =group_type.gid) where first = '"+name+"' ; "; 
 			return getQueryResult(sql);
+		}
+		
+		//method to find contact added after particular date
+		public List<Contacts> getContatctsAddedAfterdate(String date)
+		{
+			String query = "Select  * from addressbook "
+					+ "join ab_grp on (addressbook.id = ab_grp.id)"
+					+ " join group_type on (ab_grp.gid =group_type.gid)"
+					+ "  Where date_added Between cast('"+date+"' as date) and date(now()) ;";
+			return getQueryResult(query); 
 		}
 		
 }

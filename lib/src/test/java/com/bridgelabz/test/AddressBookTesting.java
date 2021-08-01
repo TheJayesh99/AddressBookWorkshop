@@ -126,5 +126,12 @@ public class AddressBookTesting
 		assertTrue(addressBookService.checkSyncWithDB("virat"));
 	}
 	
+	@Test
+	public void givenAddressbookDB_WhenBetweenDates_ShouldReturnListOfContacts()
+	{		
+		AddressBookDBService addressBookService = new AddressBookDBService();
+		List<Contacts> contactList  = addressBookService.getContatctsAddedAfterdate("2020-1-1");
+		assertEquals(3, contactList.size());
+	}
 
 }
