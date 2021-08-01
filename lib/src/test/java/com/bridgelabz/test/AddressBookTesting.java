@@ -1,6 +1,7 @@
 package com.bridgelabz.test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -115,4 +116,15 @@ public class AddressBookTesting
 		List<Contacts> contactList  = addressBookService.readFromDataBase();
 		assertEquals(4, contactList.size());
 	}
+	
+	@Test
+	public void givenUpadteEmployeeData_WhenUpdated_shouldSyncWithDatabase()
+	{
+		AddressBookDBService addressBookService = new AddressBookDBService();
+		addressBookService.readFromDataBase();
+		addressBookService.updateContactInDataBase("virat",4321);
+		assertTrue(addressBookService.checkSyncWithDB("virat"));
+	}
+	
+
 }

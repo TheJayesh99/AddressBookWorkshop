@@ -78,4 +78,45 @@ public class AddressBookDBService
 			}
 			return contactslist;
 		}
+		
+		//method to update contact
+		public void updateContactInDataBase(String name,int phoneNumber)
+		{
+			String sql = "update addressbook set phoneNumber = "+phoneNumber+" where first = '"+name+"';";
+			try(Connection connection = this.getConnection())
+			{
+				Statement statement = connection.createStatement();
+				int rowChanged = statement.executeUpdate(sql);
+				if (rowChanged == 1)
+				{
+					Contacts contact = getContactFormList(name);
+					contact.setPhoneNumber(phoneNumber);
+				}
+			}
+			catch(SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		
+		//check sync with database
+		public boolean checkSyncWithDB(String name) 
+		{
+			return getContactFromDatabase(name).get(0).equals(getContactFormList(name));
+		}
+
+		//search a particular contact in list
+		private Contacts getContactFormList(String name)
+		{
+			return contactListDB.stream().filter(contacts->contacts.getFirstName().equals(name)).findFirst().orElse(null);
+		}
+		
+		//get particular contact from database
+		private List<Contacts> getContactFromDatabase(String name) 
+		{
+			String sql = "select * from addressbook join ab_grp on (addressbook.id = ab_grp.id)"
+					+ "     join group_type on (ab_grp.gid =group_type.gid) where first = '"+name+"' ; "; 
+			return getQueryResult(sql);
+		}
+		
 }
