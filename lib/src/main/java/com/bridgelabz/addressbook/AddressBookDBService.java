@@ -150,4 +150,70 @@ public class AddressBookDBService
 			}
 			return matches;
 		}
+		
+		//Method to add contact to database
+		public void insertContactInDataBase(String first, String last, String address, String city, String state, String zip, int phoneNumber, String email, List<String> groups)
+		{
+			Connection connection = null;
+			int id = 0;
+			try 
+			{
+				connection = getConnection();
+				connection.setAutoCommit(false);
+				Statement statement = connection.createStatement();
+
+				//adding data in address book
+				String query1 = "insert into addressBook (first,last,address,city,state,zip,phoneNumber,email)"
+						+ "  values('"+first+"','"+last+"','"+address+"','"+city+"','"+state+"','"+zip+"',"+phoneNumber+",'"+email+"');";
+				int rowsChanged =  statement.executeUpdate(query1,Statement.RETURN_GENERATED_KEYS);
+				if (rowsChanged ==1 )
+				{
+					ResultSet resultSet = statement.getGeneratedKeys();
+					if (resultSet.next())
+					{
+						id = resultSet.getInt(1);
+					}
+				}
+
+				//adding values in ab_dept table
+				for (String group : groups) 
+				{				
+					String query2 = " select gid from group_type where gname= '"+group+"';"; 
+					ResultSet resultSet = statement.executeQuery(query2);
+					if (resultSet.next())
+					{
+						int gid  = resultSet.getInt(1);
+						String query3 = "insert into ab_grp (id,gid) values ("+id+","+gid+");";
+						statement.executeUpdate(query3);
+					}
+				}
+				connection.commit();
+				contactListDB.add(new Contacts(id, first, last, address, city, state, zip, phoneNumber, email, groups));
+				System.out.println(contactListDB);
+			} 
+			catch (Exception e) 
+			{
+				try 
+				{
+					connection.rollback();
+				} 
+				catch (SQLException e1)
+				{
+					throw new CustomException(ExceptionsType.CONNECTION_PROBLEM,"error while roll back");
+				}
+		
+			}
+			finally
+			{
+				try
+				{
+					connection.close();
+				} 
+				catch (SQLException e) 
+				{
+					throw new CustomException(ExceptionsType.CONNECTION_PROBLEM,"error while closing connection");
+				}
+			}
+		}
+
 }
