@@ -10,7 +10,8 @@ public class CustomException extends RuntimeException
 		WRONG_FILE_TYPE,
 		FILE_NOT_FOUND,
 		DATA_MISSMATCH,
-		EMPTY_FILE
+		EMPTY_FILE,
+		INVALID_QUERY
 	}
 	
 	public ExceptionsType type;
