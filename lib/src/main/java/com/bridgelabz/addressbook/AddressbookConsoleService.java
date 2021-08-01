@@ -61,10 +61,8 @@ public  class AddressbookConsoleService
 			if (addressBooks.containsKey(bookName))
 			{
 				//if exist then add contact to list
-				LinkedList<Contacts> contactList  =  addressBooks.get(bookName);
-				contactList.add(contact);				
-				addressBooks.put(bookName, contactList);
-				System.out.println("New Contact Added Sucessfully");
+				LinkedList<Contacts> contactList  =  addressBooks.get(bookName);				
+				addContactToExsistingBook(contact, bookName, contactList);
 			}
 			else
 			{	
@@ -80,6 +78,30 @@ public  class AddressbookConsoleService
 			throw new CustomException(ExceptionsType.NUll_VALUE,"Obtained value is null");
 		}
 		return addressBooks;
+	}
+
+	//check Duplicate using name
+	private void addContactToExsistingBook(Contacts contact, String bookName, LinkedList<Contacts> contactList)
+	{
+		boolean isAlreadyExsist = false;
+		for (Contacts searchContact : contactList) 
+		{
+			if (searchContact.getFirstName().equals(contact.getFirstName()))
+			{
+				isAlreadyExsist = true;
+				break;
+			}
+		}
+		if( !(isAlreadyExsist) )
+		{
+			contactList.add(contact);				
+			addressBooks.put(bookName, contactList);
+			System.out.println("New Contact Added Sucessfully");
+		}
+		else
+		{
+			System.out.println("Contact already exsist");
+		}
 	}
 
 	//edit contact
