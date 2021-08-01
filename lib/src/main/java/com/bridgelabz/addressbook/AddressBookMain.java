@@ -21,7 +21,7 @@ public class AddressBookMain
 					+ " 1 Add Contact "
 					+ "\n 2 Edit Contact "
 					+ "\n 3 Display Contacts"
-					+ "\n 4 Delete"
+					+ "\n 4 Delete Contact"
 					+ "\n 5 Exit"
 					+ "");
 
@@ -35,7 +35,10 @@ public class AddressBookMain
 
 			case EDIT_CONATCT:
 				System.out.println("Enter a name of person of whom you waht to change data");
-				addressbookConsoleService.editContact(scanner.next());
+				String nameToEdit  = scanner.next();
+				System.out.println("Enter Book name to which you have to edit contact");
+				String bookNameToEdit  = scanner.next();
+				addressbookConsoleService.editContact(nameToEdit , bookNameToEdit);
 				break;
 
 			case DISPLAY_CONATCT:
@@ -44,7 +47,10 @@ public class AddressBookMain
 
 			case DELETE_CONATCT:
 				System.out.println("Enter a name of person of whom you want to delete conatct");
-				addressbookConsoleService.deleteContact(scanner.next());
+				String nameToDelete  = scanner.next();
+				System.out.println("Enter Book name to which you have to delete contact");
+				String bookNameForDelete  = scanner.next();
+				addressbookConsoleService.deleteContact(nameToDelete , bookNameForDelete);
 				break;
 
 			case EXIT:

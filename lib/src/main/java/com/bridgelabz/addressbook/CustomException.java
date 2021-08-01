@@ -4,7 +4,7 @@ public class CustomException extends RuntimeException
 {
 	public enum ExceptionsType
 	{
-		EMPTY_LIST,
+		EMPTY_BOOK,
 		WRONG_INPUT,
 		NUll_VALUE
 	}

@@ -1,15 +1,16 @@
 package com.bridgelabz.addressbook;
 
+import java.util.HashMap;
 import java.util.InputMismatchException;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 import com.bridgelabz.addressbook.CustomException.ExceptionsType;
 
 public  class AddressbookConsoleService 
 {
-	//list to hold all contacts
-	Contacts[] addressBook = new Contacts[20];
-	private int index = 0 ;
+	//it holds books as key and contacts as values
+	HashMap<String,LinkedList<Contacts>> addressBooks = new HashMap<>();
 	Scanner scanner = new Scanner(System.in);
 
 	//method to create contacts
@@ -49,82 +50,101 @@ public  class AddressbookConsoleService
 	}
 
 	//method to add contact to list
-	public Contacts[] addContacts(Contacts contact)
+	public HashMap<String, LinkedList<Contacts>> addContacts(Contacts contact)
 	{
 		try
 		{
-			addressBook[index++] = contact;
-			return addressBook;			
+			System.out.println("Enter Book name to which you have to add contact");
+			String bookName  = scanner.next();
+
+			//checking book already exist
+			if (addressBooks.containsKey(bookName))
+			{
+				//if exist then add contact to list
+				LinkedList<Contacts> contactList  =  addressBooks.get(bookName);
+				contactList.add(contact);				
+				addressBooks.put(bookName, contactList);
+				System.out.println("New Contact Added Sucessfully");
+			}
+			else
+			{	
+				//creating a new book and list of contacts
+				LinkedList<Contacts> allContacts = new LinkedList<>();
+				allContacts.add(contact);
+				addressBooks.put(bookName,allContacts);
+				System.out.println("New book created and Contact Added Sucessfully");
+			}			
 		} 
 		catch (Exception e) 
 		{
 			throw new CustomException(ExceptionsType.NUll_VALUE,"Obtained value is null");
 		}
+		return addressBooks;
 	}
 
 	//edit contact
-	public Contacts[] editContact(String name)
+	public HashMap<String, LinkedList<Contacts>> editContact(String name,String bookName)
 	{
 		boolean is_found = false;
-		if(addressBook.length == 0)
+		if(addressBooks.size() == 0)
 		{
-			throw new CustomException(ExceptionsType.EMPTY_LIST,"AddessBook is empty");
+			throw new CustomException(ExceptionsType.EMPTY_BOOK,"AddessBook is empty");
 		}
 		else  
 		{
-			for (int contact = 0; contact < addressBook.length; contact++) 
-			{
-				if(addressBook[contact] != null && addressBook[contact].getFirstName().equals(name) ) 
+			for (Contacts contact : addressBooks.get(bookName))
+			{	
+				if (contact.getFirstName().equals(name))
 				{
-					getDetails(addressBook[contact]);
+					getDetails(contact);
 					is_found = true;
 					System.out.println("Contact Updated");
+					return addressBooks;
 				}
 			}
+
 		}
 		contactNotPresent(is_found);
-		return addressBook;
+		return addressBooks;
 	}
 
 
 	//Method to delete contact
-	public Contacts[] deleteContact(String name)
+	public HashMap<String, LinkedList<Contacts>> deleteContact(String name ,String bookName)
 	{
 		boolean is_found = false;
-		for (int conatct = 0; conatct < addressBook.length; conatct++) 
-		{
-			if(addressBook[conatct] != null && addressBook[conatct].getFirstName().equals(name) )
-			{ 
-				is_found = true;
-				for (int index=conatct; index < addressBook.length-2 ; index++)
-				{					
-					addressBook[index] = addressBook[index+1];
-				}
-				System.out.println("Contact deleted SuccessFully");
+		LinkedList<Contacts> conatctList = addressBooks.get(bookName);
+		for (Contacts contact : conatctList)
+		{	
+			if (contact.getFirstName().equals(name))
+			{
+				conatctList.remove(contact);
+				System.out.println("Deleted sucessfully");
+				return addressBooks;
 			}
-
 		}
+
 		contactNotPresent(is_found);
-		return addressBook;
+		return addressBooks;
 	}
 
 
 	//display contacts
 	public void displayContacts() 
 	{
-		if (addressBook != null) 
-		{			
-			for (int contact = 0; contact < addressBook.length; contact++) 
-			{
-				if(addressBook[contact] != null) 
-				{
-					System.out.println(addressBook[contact]);
-				}
-			}
-		}
-		else
+		for (String bookName : addressBooks.keySet())
 		{
-			System.out.println("Contact list is empty");
+			System.out.println(bookName);
+			LinkedList<Contacts> contactList  =  addressBooks.get(bookName);
+			displayContacts(contactList);
+		}
+	}
+
+	public void displayContacts(LinkedList<Contacts> contactList)
+	{
+		for (Contacts contact : contactList)
+		{	
+			System.out.println(contact);
 		}
 	}
 
@@ -133,7 +153,7 @@ public  class AddressbookConsoleService
 	{
 		if (!is_found)
 		{
-			System.out.println("contact not found");
+			System.out.println("Contact not found");
 		}
 	}
 }
