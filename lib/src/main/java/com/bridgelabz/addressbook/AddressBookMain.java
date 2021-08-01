@@ -14,12 +14,15 @@ public class AddressBookMain
 	private static final int COUNT_PERSON = 7;
 	private static final int SORT_BY_NAME = 8;
 	private static final int SORT_BY_PLACE = 9;
-	private static final int EXIT = 10;
+	private static final int WRITE_IN_FILE = 10;
+	private static final int READ_FROM_FILE = 11;
+	private static final int EXIT = 12;
 	
 	public static void main(String[] args) 
 	{
 		Scanner scanner = new Scanner(System.in);
 		AddressbookConsoleService addressbookConsoleService = new AddressbookConsoleService();
+		AddressBookFileService addressBookFileService = new AddressBookFileService();
 		System.out.println("Welcome to Address Book");
 		while (true) 
 		{
@@ -34,7 +37,9 @@ public class AddressBookMain
 					+ "\n 7 Count number Of person in same city or state"
 					+ "\n 8 Sort Persons by name "
 					+ "\n 9 Sort By Place"
-					+ "\n 10 Exit"
+					+ "\n 10 Write In File"
+					+ "\n 11 Read From File"
+					+ "\n 12 Exit"
 					+ "");
 
 			int userChoice = scanner.nextInt();
@@ -103,7 +108,15 @@ public class AddressBookMain
 				int sortByWhich = scanner.nextInt();
 				addressbookConsoleService.sortBY(sortByWhich);
 				break;
-				
+			
+			case WRITE_IN_FILE:
+				addressBookFileService.writingToTextFile();
+				break;
+			
+			case READ_FROM_FILE:
+				addressBookFileService.readFromTextFile();
+				break;
+			
 			case EXIT:
 				System.out.println("Thanks for using us");
 				scanner.close();

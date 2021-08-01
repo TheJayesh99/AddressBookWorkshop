@@ -6,7 +6,9 @@ public class CustomException extends RuntimeException
 	{
 		EMPTY_BOOK,
 		WRONG_INPUT,
-		NUll_VALUE
+		NUll_VALUE, 
+		WRONG_FILE_TYPE,
+		FILE_NOT_FOUND
 	}
 	
 	public ExceptionsType type;

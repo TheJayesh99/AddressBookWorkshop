@@ -6,13 +6,14 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
+import java.util.ArrayList;
 import java.util.Comparator;
 import com.bridgelabz.addressbook.CustomException.ExceptionsType;
 
 public  class AddressbookConsoleService 
 {
 	//it holds books as key and contacts as values
-	HashMap<String,LinkedList<Contacts>> addressBooks = new HashMap<>();
+	public static HashMap<String,LinkedList<Contacts>> addressBooks = new HashMap<>();
 	Scanner scanner = new Scanner(System.in);
 
 	//method to create contacts
@@ -190,15 +191,15 @@ public  class AddressbookConsoleService
 	//method to search multiple person in city and state
 	public List<Contacts> searchPerson(String searchKey)
 	{
+		List<Contacts> contactHavingSameCityOrState = new ArrayList<Contacts>();
 		for (String bookName : addressBooks.keySet())
 		{
 			LinkedList<Contacts> contactList  =  addressBooks.get(bookName);
-			List<Contacts> contactHavingSameCityOrState = contactList.stream()
+			contactHavingSameCityOrState.addAll( contactList.stream()
 					.filter(contact->contact.getState().equals(searchKey) || contact.getCity().equals(searchKey))
-					.collect(Collectors.toList());
-			return contactHavingSameCityOrState;
+					.collect(Collectors.toList()));
 		}
-		return null;
+		return contactHavingSameCityOrState;
 	}
 
 	//method to sort contacts based on person name
