@@ -3,7 +3,9 @@ package com.bridgelabz.addressbook;
 import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import com.bridgelabz.addressbook.CustomException.ExceptionsType;
 
@@ -114,6 +116,8 @@ public  class AddressbookConsoleService
 		}
 		else  
 		{
+			try
+			{
 			for (Contacts contact : addressBooks.get(bookName))
 			{	
 				if (contact.getFirstName().equals(name))
@@ -124,7 +128,11 @@ public  class AddressbookConsoleService
 					return addressBooks;
 				}
 			}
-
+			}
+			catch (Exception e) 
+			{
+				throw new CustomException(ExceptionsType.NUll_VALUE,"No such addressBook");
+			}
 		}
 		contactNotPresent(is_found);
 		return addressBooks;
@@ -178,6 +186,21 @@ public  class AddressbookConsoleService
 			System.out.println("Contact not found");
 		}
 	}
+
+	//method to search multiple person in city and state
+	public List<Contacts> searchPerson(String searchKey)
+	{
+		for (String bookName : addressBooks.keySet())
+		{
+			LinkedList<Contacts> contactList  =  addressBooks.get(bookName);
+			 List<Contacts> contactHavingSameCityOrState = contactList.stream()
+			.filter(contact->contact.getState().equals(searchKey) || contact.getCity().equals(searchKey))
+			.collect(Collectors.toList());
+			 return contactHavingSameCityOrState;
+		}
+		return null;
+	}
+
 }
 
 
