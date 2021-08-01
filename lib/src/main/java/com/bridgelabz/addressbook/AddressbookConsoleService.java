@@ -211,6 +211,39 @@ public  class AddressbookConsoleService
 			contatct.stream().sorted(Comparator.comparing(Contacts::getFirstName)).forEach(contact->System.out.println(contact));
 		}
 	}
+	
+	//method to sort by city state or zip
+		public void sortBY(int sortByWhich)
+		{
+			switch (sortByWhich)
+			{
+			case 1:
+				for (String bookName : addressBooks.keySet())
+				{
+					LinkedList<Contacts> contatct = addressBooks.get(bookName);
+				 	contatct.stream().sorted(Comparator.comparing(Contacts::getCity)).forEach(n->System.out.println(n));
+				}
+				break;
+			case 2:
+				for (String bookName : addressBooks.keySet())
+				{
+					LinkedList<Contacts> contatct = addressBooks.get(bookName);
+					contatct.stream().sorted(Comparator.comparing(Contacts::getState)).forEach(n->System.out.println(n));
+				}
+				break;
+			case 3:				
+				for (String bookName : addressBooks.keySet())
+				{
+					LinkedList<Contacts> contatct = addressBooks.get(bookName);
+					contatct.stream().sorted(Comparator.comparing(Contacts::getZip)).forEach(n->System.out.println(n));
+				}
+				break;
+			default:
+				System.out.println("Invalid Input");
+				break;
+			}
+			
+		}
 
 }
 
