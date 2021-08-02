@@ -27,13 +27,15 @@ public class Contacts
 	 private String email;
 	private List<String> groups;
 	
-	public Contacts() {
+	public Contacts() 
+	{
 		super();
 	
 	}
 
 	public Contacts(int id, String firstName, String lastname, String address, String city, String state, String zip,
-			int phoneNumber, String email, List<String> groups) {
+			int phoneNumber, String email, List<String> groups)
+	{
 		super();
 		this.id = id;
 		this.firstName = firstName;
